@@ -1,0 +1,241 @@
+
+需求
+
+
+把一个文件夹中所有子文件夹下的文件移动到指定的文件夹中
+import os
+import shutil
+
+原路径='/Volumes/笠桓/后期菌素材下载/【后期菌】500首超火无版权专用背景音乐'
+新路径='/Volumes/笠桓/剪辑视频的素材'
+
+for root,dirs,files in os.walk(原路径):
+    for file in files:
+        shutil.copy(os.path.join(root,file),新路径)
+-----------------------------------------------------------
+创建单层文件夹
+（不推荐）
+#通用模版
+import os
+#创建单层目录
+def 创建文件夹(路径):
+    #basename:返回目录路径中的最后一个元素
+    目录名称=os.path.basename(路径)
+    #判断路径是否存在
+    是否存在=os.path.exists(路径)
+    #如果不存在，创建单层目录
+    if not 是否存在:
+        os.mkdir(路径)
+        print('目录创建成功：'+目录名称)
+        return True
+    #如果存在，则不创建单层目录，且提示
+    else:
+        print('目录已经存在：'+目录名称)
+        return False
+#确保仅有本程序调用
+if __name__ == '__main__':
+    创建文件夹('/Users/lifan/PycharmProjects/untitled3/创建文件夹的模块’)
+-----------------------------------------------------------
+创建多层文件夹
+#创建多层目录模板
+import os
+def 创建多层文件(路径):
+    if not os.path.exists(路径):
+        os.makedirs(路径)
+        print('目录创建成功：'+路径)
+        return True
+    else:
+        print(' 目录已经存在。’)
+        return False
+
+if __name__=='__main__':
+    创建多层文件('/Users/lifan/PycharmProjects/untitled3/9999999’)
+
+-----------------------------------------------------------
+上面的代码是为了在程序中显示是否已经运行过
+一般自己用可以两行：
+import os
+Os.makedirs()
+-----------------------------------------------------------
+从一个地方把文件复制到另一个地方
+
+import shutil
+import os
+
+os.makedirs('/Users/lifan/PycharmProjects/untitled3/复制文件')
+
+原地址='/Users/lifan/PycharmProjects/untitled3/diaoyong/2.py'
+新地址='/Users/lifan/PycharmProjects/untitled3/复制文件'
+
+shutil.copy(原地址,新地址)——要是自信，直接这一行就可以了
+比如
+shutil.copy('/Users/lifan/PycharmProjects/untitled3/diaoyong/pizza.py','/Users/lifan/PycharmProjects/untitled3/复制文件')
+
+-----------------------------------------------------------
+
+
+查找某一文件，并输出其路径（最简单，glob）
+
+但是不查找下一级文件夹
+要查找所有子文件夹，一定要加一句**/
+import glob
+import os
+os.chdir('/Users/lifan/PycharmProjects/untitled3')
+print(glob.glob('**/**2.txt',recursive=True))
+-----------------------------------------------------------
+#这里是数着打印的方式
+import glob
+import os
+os.chdir('/Users/lifan/PycharmProjects/untitled3')
+-----------------------------------------------------------
+查找文件=glob.glob('**/**1.py',recursive=True)
+for i in 查找文件:
+    print(i)
+-----------------------------------------------------------
+批量查找指定文件夹重复文件，hash判断是否实际内容重复，删除，或者移入制定文件，显示重复文件路径、名字等信息
+import os
+列表=[]
+
+for 文件夹路径,子文件夹列表,文件列表 in os.walk('/Users/lifan/Downloads/Excel VBA常用代码'):
+    for 文件名 in os.scandir(文件夹路径):
+        if 文件名.is_file():
+            文件=open(文件名,'rb').read()
+            if hash(文件) in 列表:
+                os.remove(文件名)
+                print(文件名)
+            else:
+                列表.append(hash(文件))
+-----------------------------------------------------------
+
+
+查找某一文件，并输出其路径（三）
+方法一：
+import os
+
+# 在对os进行调取的时候，返回三个参数
+# for循环自动完成递归枚举
+# 三个参数：分别返回
+# 1.父目录（当前路径）parent
+# 2.父目录下的所有文件夹名字 dirnames
+# 3.父目录下的所有文件名字 filenames
+-----------------------------------------------------------
+for parent,dirnames,filenames in os.walk('/Users/lifan/PycharmProjects/untitled3'):
+    filenames[:] = [f for f in filenames if f.endswith("1.py")]
+    for filename in filenames:
+        #输出找到的文件目录
+        #os.path.join——————拼接’文件夹路径+文件名字’路径
+        print(os.path.join(parent,filename))
+-----------------------------------------------------------
+查找某一文件，并输出其路径（二）
+方法二
+import os
+
+# 在对os进行调取的时候，返回三个参数
+# for循环自动完成递归枚举
+# 三个参数：分别返回
+# 1.父目录（当前路径）parent
+# 2.父目录下的所有文件夹名字 dirnames
+# 3.父目录下的所有文件名字 filenames
+
+列表=[]
+for parent,dirnames,filenames in os.walk('/Users/lifan/PycharmProjects/untitled3'):
+
+
+   
+    for filename in filenames:
+
+        if filename.endswith('1.py') :
+            列表.append(filename)
+
+            for i in 列表:
+                print(os.path.join(parent,i))
+-----------------------------------------------------------
+Xlsx写入行号和列号
+import pandas as pd
+import numpy as np
+import xlrd
+路径=('/Users/lifan/Desktop/Pandas课件/课件/pandas教程/课件001-005/读取文件.xlsx')
+读取数据=pd.read_excel(路径,header=0,index_col='序号')
+读取数据.columns=['1','2','3','4','5']
+读取数据.index=['q','j','u','y','t','r','w']
+print(读取数据)
+
+
+
+这里的结果是不改变原文件的，只是把数据读取出来再处理的
+需要存储入原文件的，加一行读取数据.to_excel(路径)
+-----------------------------------------------------------
+#查找文件名字中指定字符，并进行替换或者删除
+#查找文件名字中指定字符，并进行替换或者删除
+import re
+import os
+path='/Volumes/笠桓/后期菌素材下载/ipod classic音乐'
+orignalname='【'
+replacename=''
+
+def main1(path1):
+    files=os.listdir(path1)
+
+    for file in files:
+        if os.path.isdir(path1+'/'+file):       #isdir————判读是不是文件夹（可能是文件），是文件夹就继续来一遍这个函数
+            main1(path1+'/'+file)
+        else:
+            file2=os.listdir(path1+'/')         #上一轮判断出来不是文件夹，说明直接是文件
+            for file1 in file2:
+                if orignalname in file1:           #然后开始准备替换字符
+                 n=str(path1+'/'+file1.replace(orignalname,replacename))
+                 n1=str(path1+'/'+str(file1))
+
+                 try:
+                     os.rename(n1,n)
+                 except IOError:
+                     continue
+
+main1(path)
+-----------------------------------------------------------
+查找文件夹（不查找文件名）指定字符并进行替换
+import re
+import os
+
+orignalname='陈奕迅'
+replacename=''
+
+for 文件夹路径,子文件夹列表,文件列表 in os.walk('/Volumes/笠桓/后期菌素材下载/ipod classic音乐/陈奕迅专缉'):
+    for 子文件夹 in 子文件夹列表:
+        if orignalname in 子文件夹:
+            n=str('/Volumes/笠桓/后期菌素材下载/ipod classic音乐/陈奕迅专缉'+'/'+子文件夹.replace(orignalname,replacename))
+            n1=str('/Volumes/笠桓/后期菌素材下载/ipod classic音乐/陈奕迅专缉'+'/'+str(子文件夹))
+            os.rename(n1,n)
+-----------------------------------------------------------
+所有文件名称前面添加前缀
+import os
+
+
+for 文件夹路径,子文件夹列表,文件列表 in os.walk('/Volumes/笠桓/后期菌素材下载/ipod classic音乐/久石让'):
+    for 文件 in 文件列表:
+        新名字=str('久石让')+文件
+        os.rename(
+            文件夹路径+'/'+文件,
+                  文件夹路径+'/'+新名字)
+-----------------------------------------------------------
+查找某一目录下文件，并将其全部复制到某处
+
+import os
+import shutil
+# 在对os进行调取的时候，返回三个参数
+# for循环自动完成递归枚举
+# 三个参数：分别返回
+# 1.父目录（当前路径）parent
+# 2.父目录下的所有文件夹名字 dirnames
+# 3.父目录下的所有文件名字 filenames
+
+for parent,dirnames,filenames in os.walk('/Volumes/笠桓/后期菌素材下载/2020Java'):
+    filenames[:] = [f for f in filenames if f.endswith(".pdf")]
+    for filename in filenames:
+        #输出找到的文件目录
+        #os.path.join——————拼接’文件夹路径+文件名字’路径
+        print(os.path.join(parent,filename))
+        shutil.copy(os.path.join(parent,filename),'/Users/lifan/Desktop/java-pdf')
+
+
+-----------------------------------------------------------
