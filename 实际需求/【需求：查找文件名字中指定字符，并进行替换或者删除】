@@ -1,0 +1,25 @@
+import re
+import os
+path=''
+orignalname=''
+replacename=''
+
+def main1(path1):
+    files=os.listdir(path1)      #files是path1下文件列表
+
+    for file in files:
+        if os.path.isdir(path1+'/'+file):       #isdir————判读是不是文件夹（可能是文件），是文件夹就继续来一遍这个函数
+            main1(path1+'/'+file)
+        else:
+            file2=os.listdir(path1+'/')         #上一轮判断出来不是文件夹，说明直接是文件
+            for file1 in file2:
+                if orignalname in file1:           #然后开始准备替换字符
+                 n=str(path1+'/'+file1.replace(orignalname,replacename))#新名字
+                 n1=str(path1+'/'+str(file1))#旧名字
+
+                 try:
+                     os.rename(n1,n)
+                 except IOError:
+                     continue
+
+main1(path)
