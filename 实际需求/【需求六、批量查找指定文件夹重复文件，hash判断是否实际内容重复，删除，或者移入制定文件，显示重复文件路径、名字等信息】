@@ -1,0 +1,14 @@
+import os
+列表=[]
+
+for 文件夹路径,子文件夹列表,文件列表 in os.walk('/Users/lifan/Desktop/剑桥真题4-12（高清版）'):
+    for 文件名 in os.scandir(文件夹路径):
+        if 文件名.is_file():
+            文件=open(文件名,'rb').read()
+            if hash(文件) in 列表:
+                # os.remove(文件名)
+                print(文件名)
+                lujin=os.path.abspath(文件名)  #获取当前路径  可以使文文件名
+                print(lujin)
+            else:
+                列表.append(hash(文件))
