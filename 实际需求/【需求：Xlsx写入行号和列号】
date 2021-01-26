@@ -1,0 +1,12 @@
+import pandas as pd
+import numpy as np
+import xlrd
+
+路径=('/Users/lifan/Desktop/Pandas课件/课件/pandas教程/课件001-005/读取文件.xlsx')
+读取数据=pd.read_excel(路径,header=0,index_col='序号')
+读取数据.columns=['1','2','3','4','5']
+读取数据.index=['q','j','u','y','t','r','w']
+print(读取数据)
+
+这里的结果是不改变原文件的，只是把数据读取出来再处理的
+需要存储入原文件的，加一行读取数据.to_excel(路径)
