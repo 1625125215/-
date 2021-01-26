@@ -1,0 +1,16 @@
+#创建多层目录模板
+import os
+def 创建多层文件(路径):
+    if not os.path.exists(路径):
+        os.makedirs(路径)
+        print('目录创建成功：'+路径)
+        return True
+    else:
+        print(' 目录已经存在。’)
+        return False
+
+if __name__=='__main__':
+    创建多层文件('/Users/lifan/PycharmProjects/untitled3/9999999’)
+因此if __name__ == 'main': 的作用就是控制这两种情况执行代码的过程。
+在if __name__ == 'main': 下的代码只有在第一种情况下（即文件作为脚本直接执行）才会被执行
+而 import 到其他脚本中是不会被执行的。
