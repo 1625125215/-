@@ -1,0 +1,12 @@
+import re
+import os
+
+orignalname=''
+replacename=''
+
+for 文件夹路径,子文件夹列表,文件列表 in os.walk('/Volumes/笠桓/后期菌素材下载/ipod classic音乐/陈奕迅专缉'):
+    for 子文件夹 in 子文件夹列表:
+        if orignalname in 子文件夹:
+            n=str('/Volumes/笠桓/后期菌素材下载/ipod classic音乐/陈奕迅专缉'+'/'+子文件夹.replace(orignalname,replacename))
+            n1=str('/Volumes/笠桓/后期菌素材下载/ipod classic音乐/陈奕迅专缉'+'/'+str(子文件夹))
+            os.rename(n1,n)
