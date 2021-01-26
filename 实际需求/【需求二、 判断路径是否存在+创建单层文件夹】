@@ -1,0 +1,23 @@
+import os
+#创建单层目录
+def 创建文件夹(路径):
+    #basename:返回目录路径中的最后一个元素
+    目录名称=os.path.basename(路径)
+    
+    #判断路径是否存在
+    是否存在=os.path.exists(路径)
+    
+    #如果不存在，创建单层目录
+    if not 是否存在:
+        os.mkdir(路径)
+        print('目录创建成功：'+目录名称)
+        return True
+    
+    #如果存在，则不创建单层目录，且提示
+    else:
+        print('目录已经存在：'+目录名称)
+        return False
+        
+#确保仅有本程序调用
+if __name__ == '__main__':
+    创建文件夹('/Users/lifan/PycharmProjects/untitled3/创建文件夹的模块’)
