@@ -1,0 +1,4 @@
+for 文件名  in wenjian:
+   if ('pizza' in 文件名) or ('dog' in 文件名):
+       暂存列表.append(文件名)
+print(f'文件共{len(文件名)}，分别是{暂存列表}’)
