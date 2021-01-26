@@ -1,0 +1,14 @@
+import os
+import shutil
+原路径=''
+新路径=''
+for root,dirs,files in os.walk(原路径):
+    for file in files:
+        shutil.copy(os.path.join(root,file),新路径)
+        
+//其中第一个为起始路径，
+第二个为起始路径下的文件夹,
+第三个是起始路径下的文件.
+dirpath是一个string，代表目录的路径,
+dirnames是一个list，包含了dirpath下所有子目录的名字,
+filenames是一个list，包含了非目录文件的名字.这些名字不包含路径信息,如果需要得到全路径,需要使用 os.path.join(dirpath, name).
