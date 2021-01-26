@@ -1,0 +1,8 @@
+以py后缀为例
+import os
+os.chdir(")
+wenjian=os.
+for 文件名 in wenjian:
+    if 文件名.endswith('.py'):————————————————endswith是从末尾开始，查找
+        列表.append(文件名)
+print(f'py文件共{len(列表)}个，分别是{列表}’)
