@@ -1,0 +1,17 @@
+import os
+for 文件夹路径,子文件夹列表,文件列表 in os.walk('/Volumes/笠桓/后期菌素材下载/ipod classic音乐/久石让'):
+    for 文件 in 文件列表:
+        新名字=str('久石让')+文件
+        os.rename(文件夹路径+'/'+文件,文件夹路径+'/'+新名字)
+-----------------------------------------------------------
+【需求：查找某一目录下某种文件（pdf），并将其全部复制到某处】
+import os
+import shutil
+for parent,dirnames,filenames in os.walk('/Volumes/笠桓/后期菌素材下载/2020Java'):
+    filenames[:] = [f for f in filenames if f.endswith(".pdf")]
+    for filename in filenames:
+        #输出找到的文件目录
+        #os.path.join——————拼接’文件夹路径+文件名字’路径
+        print(os.path.join(parent,filename))
+        shutil.copy(os.path.join(parent,filename),'/Users/lifan/Desktop/java-pdf')
+
