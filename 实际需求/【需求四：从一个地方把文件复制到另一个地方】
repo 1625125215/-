@@ -1,0 +1,10 @@
+import shutil
+import os
+os.makedirs('设立目标文件夹')
+原地址='/Users/lifan/PycharmProjects/untitled3/diaoyong/2.py'
+新地址='/Users/lifan/PycharmProjects/untitled3/复制文件'
+
+要是自信，直接这一行就可以了
+shutil.copy(原地址,新地址)
+比如
+shutil.copy('/Users/lifan/PycharmProjects/untitled3/diaoyong/pizza.py','/Users/lifan/PycharmProjects/untitled3/复制文件')
